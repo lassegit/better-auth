@@ -1,16 +1,17 @@
-import { alphabet, generateRandomString } from "../../../crypto/random";
+import { APIError } from "better-call";
+import { Buffer } from "node:buffer";
 import { z } from "zod";
-import { createAuthEndpoint } from "../../../api/call";
 import { sessionMiddleware } from "../../../api";
+import { createAuthEndpoint } from "../../../api/call";
+import { setSessionCookie } from "../../../cookies";
 import { symmetricDecrypt, symmetricEncrypt } from "../../../crypto";
-import { verifyTwoFactorMiddleware } from "../verify-middleware";
+import { alphabet, generateRandomString } from "../../../crypto/random";
 import type {
 	TwoFactorProvider,
 	TwoFactorTable,
 	UserWithTwoFactor,
 } from "../types";
-import { APIError } from "better-call";
-import { setSessionCookie } from "../../../cookies";
+import { verifyTwoFactorMiddleware } from "../verify-middleware";
 
 export interface BackupCodeOptions {
 	/**

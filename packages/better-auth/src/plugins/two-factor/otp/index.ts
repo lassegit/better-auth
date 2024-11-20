@@ -1,14 +1,15 @@
 import { APIError } from "better-call";
+import { Buffer } from "node:buffer";
+import { TimeSpan } from "oslo";
 import { TOTPController } from "oslo/otp";
 import { z } from "zod";
 import { createAuthEndpoint } from "../../../api/call";
-import { verifyTwoFactorMiddleware } from "../verify-middleware";
 import type {
 	TwoFactorProvider,
 	TwoFactorTable,
 	UserWithTwoFactor,
 } from "../types";
-import { TimeSpan } from "oslo";
+import { verifyTwoFactorMiddleware } from "../verify-middleware";
 
 export interface OTPOptions {
 	/**

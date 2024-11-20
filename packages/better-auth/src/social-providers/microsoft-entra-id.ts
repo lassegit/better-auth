@@ -1,8 +1,8 @@
-import type { ProviderOptions } from "../oauth2";
-import { validateAuthorizationCode, createAuthorizationURL } from "../oauth2";
-import type { OAuthProvider } from "../oauth2";
 import { betterFetch } from "@better-fetch/fetch";
+import { Buffer } from "node:buffer";
 import { parseJWT } from "oslo/jwt";
+import type { OAuthProvider, ProviderOptions } from "../oauth2";
+import { createAuthorizationURL, validateAuthorizationCode } from "../oauth2";
 import { logger } from "../utils/logger";
 
 export interface MicrosoftEntraIDProfile extends Record<string, any> {

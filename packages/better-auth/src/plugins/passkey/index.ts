@@ -11,21 +11,22 @@ import type {
 	PublicKeyCredentialCreationOptionsJSON,
 } from "@simplewebauthn/types";
 import { APIError } from "better-call";
-import { alphabet, generateRandomString } from "../../crypto/random";
+import { Buffer } from "node:buffer";
 import { z } from "zod";
-import { createAuthEndpoint } from "../../api/call";
 import { sessionMiddleware } from "../../api";
+import { createAuthEndpoint } from "../../api/call";
 import { getSessionFromCtx } from "../../api/routes";
+import { setSessionCookie } from "../../cookies";
+import { alphabet, generateRandomString } from "../../crypto/random";
+import { mergeSchema } from "../../db/schema";
+import { BetterAuthError } from "../../error";
 import type {
 	BetterAuthPlugin,
 	InferOptionSchema,
 	PluginSchema,
 } from "../../types/plugins";
-import { setSessionCookie } from "../../cookies";
-import { BetterAuthError } from "../../error";
-import { generateId } from "../../utils/id";
 import { env } from "../../utils/env";
-import { mergeSchema } from "../../db/schema";
+import { generateId } from "../../utils/id";
 
 interface WebAuthnChallengeValue {
 	expectedChallenge: string;

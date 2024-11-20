@@ -1,3 +1,4 @@
+import { Buffer } from "node:buffer";
 import { HMAC, sha256 } from "oslo/crypto";
 import { constantTimeEqual } from "./buffer";
 

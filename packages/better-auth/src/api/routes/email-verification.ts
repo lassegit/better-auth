@@ -1,10 +1,11 @@
+import { APIError } from "better-call";
+import { Buffer } from "node:buffer";
 import { TimeSpan } from "oslo";
 import { createJWT, validateJWT, type JWT } from "oslo/jwt";
 import { z } from "zod";
-import { createAuthEndpoint } from "../call";
-import { APIError } from "better-call";
-import { getSessionFromCtx } from "./session";
 import { setSessionCookie } from "../../cookies";
+import { createAuthEndpoint } from "../call";
+import { getSessionFromCtx } from "./session";
 
 export async function createEmailVerificationToken(
 	secret: string,

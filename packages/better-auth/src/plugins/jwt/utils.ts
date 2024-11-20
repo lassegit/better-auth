@@ -1,4 +1,5 @@
-import { subtle, getRandomValues } from "uncrypto";
+import { Buffer } from "node:buffer";
+import { getRandomValues, subtle } from "uncrypto";
 
 async function deriveKey(secretKey: string): Promise<CryptoKey> {
 	const enc = new TextEncoder();

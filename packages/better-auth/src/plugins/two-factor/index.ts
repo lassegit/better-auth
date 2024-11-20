@@ -1,25 +1,26 @@
-import { alphabet, generateRandomString } from "../../crypto/random";
-import { z } from "zod";
-import { createAuthEndpoint, createAuthMiddleware } from "../../api/call";
-import { sessionMiddleware } from "../../api";
-import { hs256, symmetricEncrypt } from "../../crypto";
-import type { BetterAuthPlugin } from "../../types/plugins";
-import { backupCode2fa, generateBackupCodes } from "./backup-codes";
-import { otp2fa } from "./otp";
-import { totp2fa } from "./totp";
-import type { TwoFactorOptions, UserWithTwoFactor } from "./types";
-import { mergeSchema, type Session } from "../../db/schema";
-import { TWO_FACTOR_COOKIE_NAME, TRUST_DEVICE_COOKIE_NAME } from "./constant";
-import { validatePassword } from "../../utils/password";
 import { APIError } from "better-call";
-import { createTOTPKeyURI } from "oslo/otp";
+import { Buffer } from "node:buffer";
 import { TimeSpan } from "oslo";
+import { createTOTPKeyURI } from "oslo/otp";
+import { z } from "zod";
+import { sessionMiddleware } from "../../api";
+import { createAuthEndpoint, createAuthMiddleware } from "../../api/call";
 import { deleteSessionCookie, setSessionCookie } from "../../cookies";
+import { hs256, symmetricEncrypt } from "../../crypto";
+import { alphabet, generateRandomString } from "../../crypto/random";
+import { mergeSchema, type Session } from "../../db/schema";
+import type { BetterAuthPlugin } from "../../types/plugins";
+import { validatePassword } from "../../utils/password";
 import {
 	getEndpointResponse,
 	returnHookResponse,
 } from "../../utils/plugin-helper";
+import { backupCode2fa, generateBackupCodes } from "./backup-codes";
+import { TRUST_DEVICE_COOKIE_NAME, TWO_FACTOR_COOKIE_NAME } from "./constant";
+import { otp2fa } from "./otp";
 import { schema } from "./schema";
+import { totp2fa } from "./totp";
+import type { TwoFactorOptions, UserWithTwoFactor } from "./types";
 
 export const twoFactor = (options?: TwoFactorOptions) => {
 	const opts = {

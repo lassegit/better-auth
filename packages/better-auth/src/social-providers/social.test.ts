@@ -1,10 +1,11 @@
-import { describe, expect, it, vi } from "vitest";
-import { getTestInstance } from "../test-utils/test-instance";
+import { Buffer } from "node:buffer";
 import { createJWT } from "oslo/jwt";
-import { DEFAULT_SECRET } from "../utils/constants";
-import type { GoogleProfile } from "./google";
+import { describe, expect, it, vi } from "vitest";
 import { parseSetCookieHeader } from "../cookies";
 import { getOAuth2Tokens } from "../oauth2";
+import { getTestInstance } from "../test-utils/test-instance";
+import { DEFAULT_SECRET } from "../utils/constants";
+import type { GoogleProfile } from "./google";
 
 vi.mock("../oauth2", async (importOriginal) => {
 	const original = (await importOriginal()) as any;

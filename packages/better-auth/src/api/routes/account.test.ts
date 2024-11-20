@@ -1,10 +1,11 @@
-import { describe, expect, it, vi } from "vitest";
-import { getTestInstance } from "../../test-utils/test-instance";
-import { parseSetCookieHeader } from "../../cookies";
-import type { GoogleProfile } from "../../social-providers";
+import { Buffer } from "node:buffer";
 import { createJWT } from "oslo/jwt";
-import { DEFAULT_SECRET } from "../../utils/constants";
+import { describe, expect, it, vi } from "vitest";
+import { parseSetCookieHeader } from "../../cookies";
 import { getOAuth2Tokens } from "../../oauth2";
+import type { GoogleProfile } from "../../social-providers";
+import { getTestInstance } from "../../test-utils/test-instance";
+import { DEFAULT_SECRET } from "../../utils/constants";
 
 let email = "";
 vi.mock("../../oauth2", async (importOriginal) => {

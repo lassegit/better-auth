@@ -1,8 +1,8 @@
-import { APIError, type Context } from "better-call";
-import { createAuthEndpoint, createAuthMiddleware } from "../call";
-import { getDate } from "../../utils/date";
-import { deleteSessionCookie, setSessionCookie } from "../../cookies";
+import { APIError } from "better-call";
+import { Buffer } from "node:buffer";
 import { z } from "zod";
+import { deleteSessionCookie, setSessionCookie } from "../../cookies";
+import { hmac } from "../../crypto/hash";
 import type {
 	BetterAuthOptions,
 	GenericEndpointContext,
@@ -12,8 +12,9 @@ import type {
 	Session,
 	User,
 } from "../../types";
-import { hmac } from "../../crypto/hash";
+import { getDate } from "../../utils/date";
 import { safeJSONParse } from "../../utils/json";
+import { createAuthEndpoint, createAuthMiddleware } from "../call";
 
 export const getSession = <Option extends BetterAuthOptions>() =>
 	createAuthEndpoint(

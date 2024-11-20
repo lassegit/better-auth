@@ -1,15 +1,15 @@
+import { Buffer } from "node:buffer";
+import { TimeSpan } from "oslo";
+import { TOTPController } from "oslo/otp";
 import { describe, expect, it, vi } from "vitest";
-import { getTestInstance } from "../../test-utils/test-instance";
 import { twoFactor, twoFactorClient } from ".";
 import { createAuthClient } from "../../client";
 import { parseSetCookieHeader } from "../../cookies";
-import type { TwoFactorTable, UserWithTwoFactor } from "./types";
-import { TOTPController } from "oslo/otp";
-import { TimeSpan } from "oslo";
-import { DEFAULT_SECRET } from "../../utils/constants";
 import { symmetricDecrypt } from "../../crypto";
-import { APIError } from "better-call";
 import { convertSetCookieToCookie } from "../../test-utils/headers";
+import { getTestInstance } from "../../test-utils/test-instance";
+import { DEFAULT_SECRET } from "../../utils/constants";
+import type { TwoFactorTable, UserWithTwoFactor } from "./types";
 
 describe("two factor", async () => {
 	let OTP = "";
